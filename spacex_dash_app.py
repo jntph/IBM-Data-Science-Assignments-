@@ -30,14 +30,9 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
                                             searchable=True
                                             ),
                                 html.Br(),
-
-                                # TASK 2: Add a pie chart to show the total successful launches count for all sites
-                                # If a specific launch site was selected, show the Success vs. Failed counts for the site
                                 html.Div(dcc.Graph(id='success-pie-chart')),
                                 html.Br(),
-
                                 html.P("Payload range (Kg):"),
-                                # TASK 3: Add a slider to select payload range
                                 dcc.RangeSlider(
                                     id='payload-slider',
                                     min=0,
@@ -50,13 +45,10 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
                                             "always_visible": True,
                                             "style": {"color": "LightSteelBlue", "fontSize": "16px"}}
                                     ),
-
-                                # TASK 4: Add a scatter chart to show the correlation between payload and launch success
+                                
                                 dcc.Graph(id='success-payload-scatter-chart'),
                                 ])
 
-# TASK 2:
-# Add a callback function for `site-dropdown` as input, `success-pie-chart` as output
 @app.callback(
     Output(component_id='success-pie-chart', component_property='figure'),
     Input(component_id='site-dropdown', component_property='value')
@@ -93,8 +85,7 @@ def get_pie_chart(entered_site):
         fig = px.pie(new_df, values='count', names='Outcome',color = "Outcome", color_discrete_sequence=custom_colors,
                      title='Success Failure Pie Chart for Launch Site VAFB SLC-4E')
     return fig
-# TASK 4:
-# Add a callback function for `site-dropdown` and `payload-slider` as inputs, `success-payload-scatter-chart` as output
+
 @app.callback(
     Output(component_id='success-payload-scatter-chart', component_property='figure'),
     [Input(component_id='site-dropdown', component_property='value'),
